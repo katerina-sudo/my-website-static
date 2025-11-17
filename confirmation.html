@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation - RightOnTime</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <div style="
+                background: white;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            ">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#2F80ED" stroke-width="2"/>
+                    <path d="M12 6V12L16 14" stroke="#2F80ED" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1 style="margin: 0;">RightOnTime</h1>
+        </div>
+        <p style="color: white; margin-top: 5px;">Because parking shouldn't make you late.</p>
+    </div>
+    
+    <div class="nav">
+        <a href="index.html">Map</a>
+        <a href="receipts.html">My Receipts</a>
+    </div>
+    
+    <div class="container">
+        <div class="receipt" id="confirmationReceipt">
+            <!-- Content will be loaded by JavaScript -->
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/confirmation.js"></script>
+</body>
+</html>

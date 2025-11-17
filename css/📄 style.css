@@ -1,0 +1,421 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #F9FAFB;
+    min-height: 100vh;
+    color: #1A1A1A;
+}
+
+.header {
+    background: linear-gradient(135deg, #2F80ED 0%, #56CCF2 100%);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    color: white;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.nav {
+    background: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.nav a {
+    color: #2F80ED;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.nav a:hover, .nav a.active {
+    background: #2F80ED;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#map {
+    height: 600px;
+    width: 100%;
+    position: relative;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.parking-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.free-spaces {
+    background: #2F80ED;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.free-spaces.no-space {
+    background: #EB5757;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.price-item {
+    background: #F9FAFB;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #56CCF2;
+}
+
+.price-item .label {
+    color: #2F80ED;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.price-item .price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #F2C94C;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2F80ED;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #56CCF2;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.warning {
+    background: #F2C94C;
+    color: #1A1A1A;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #2F80ED 0%, #56CCF2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(47, 128, 237, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #F2C94C 0%, #F2994A 100%);
+}
+
+.total-cost {
+    background: #F9FAFB;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+    border: 2px solid #56CCF2;
+}
+
+.total-cost .label {
+    color: #2F80ED;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.total-cost .amount {
+    font-size: 2em;
+    font-weight: bold;
+    color: #F2C94C;
+}
+
+.receipt {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #56CCF2;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #F9FAFB;
+}
+
+.barcode {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.barcode-image {
+    background: linear-gradient(90deg, 
+        #000 0%, #000 10%, #fff 10%, #fff 20%,
+        #000 20%, #000 25%, #fff 25%, #fff 35%,
+        #000 35%, #000 40%, #fff 40%, #fff 45%,
+        #000 45%, #000 55%, #fff 55%, #fff 60%,
+        #000 60%, #000 70%, #fff 70%, #fff 75%,
+        #000 75%, #000 80%, #fff 80%, #fff 90%,
+        #000 90%, #000 100%);
+    height: 80px;
+    margin: 10px 0;
+}
+
+.receipt-list {
+    list-style: none;
+}
+
+.receipt-list li {
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+}
+
+.receipt-list li:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Map search box styles */
+.map-search-box {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    width: 320px;
+    max-width: calc(100% - 30px);
+}
+
+.map-search-box input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    background: white;
+}
+
+.map-search-box input:focus {
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    max-height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1001;
+    display: none;
+    margin-top: 5px;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background: #007AFF;
+    border-radius: 4px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+    background: #0051D5;
+}
+
+.search-results.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.search-result-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+.search-result-item:hover {
+    background: #F2F2F7;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-title {
+    font-weight: 600;
+    color: #007AFF;
+    margin-bottom: 3px;
+    font-size: 0.9em;
+}
+
+.search-result-address {
+    font-size: 0.8em;
+    color: #1A1A1A;
+}
+
+.search-result-icon {
+    margin-right: 6px;
+}
+
+/* Leaflet custom styles */
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.leaflet-popup-content {
+    margin: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.leaflet-popup-tip {
+    background: white;
+}
+
+.custom-parking-marker {
+    background: transparent;
+    border: none;
+}
+
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+    width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+    background: white !important;
+    color: #666 !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    text-decoration: none;
+}
+
+.leaflet-control-zoom a:hover {
+    background: #f0f0f0 !important;
+    color: #333 !important;
+}
+
+.leaflet-control-zoom-in {
+    border-bottom: 1px solid #ddd !important;
+}
+
+.leaflet-bar {
+    border: none !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.5em;
+    }
+    
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #map {
+        height: 400px;
+    }
+    
+    .card, .receipt {
+        padding: 20px;
+    }
+    
+    .map-search-box {
+        width: calc(100% - 30px);
+    }
+}
