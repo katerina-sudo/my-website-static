@@ -1,7 +1,7 @@
 // Load parkings from localStorage or use initial data
 const parkings = loadParkings();
 
-// Create map with Google Maps style
+// Create map with OpenStreetMap style
 const map = L.map('map', {
     zoomControl: false,
     scrollWheelZoom: true,
@@ -14,11 +14,10 @@ L.control.zoom({
     position: 'bottomright'
 }).addTo(map);
 
-// Use Google Maps style tile layer
-L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-    attribution: '© Google Maps',
-    maxZoom: 20,
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// Use OpenStreetMap tile layer (instead of Google Maps)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
 }).addTo(map);
 
 // Create custom marker clusters and icons
