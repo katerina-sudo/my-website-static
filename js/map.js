@@ -28,17 +28,16 @@ parkings.forEach(parking => {
     const availabilityPercent = (parking.free_spaces / parking.total_spaces) * 100;
     
     if (parking.free_spaces === 0) {
-        markerColor = '#EB5757'; // Red - Full
+        markerColor = '#EB5757';
         iconColor = '#fff';
     } else if (availabilityPercent < 30) {
-        markerColor = '#F2C94C'; // Yellow - Limited
+        markerColor = '#F2C94C';
         iconColor = '#1A1A1A';
     } else {
-        markerColor = '#2F80ED'; // Blue - Available
+        markerColor = '#2F80ED';
         iconColor = '#fff';
     }
     
-    // Create beautiful custom icon
     const customIcon = L.divIcon({
         className: 'custom-parking-marker',
         html: `
@@ -83,11 +82,8 @@ parkings.forEach(parking => {
     });
     
     const marker = L.marker([parking.lat, parking.lng], {icon: customIcon}).addTo(map);
-    
-    // Store parking data in marker
     marker.parkingData = parking;
     
-    // Beautiful popup design
     const popupContent = `
         <div style="min-width: 250px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
             <div style="
@@ -141,7 +137,8 @@ parkings.forEach(parking => {
                 </div>
                 
                 <button 
-                    onclick="window.location.href='parking-detail.html?id=${parking.id}'" 
+                    class="popup-book-btn"
+                    data-parking-id="${parking.id}"
                     style="
                         width: 100%;
                         padding: 12px;
@@ -155,8 +152,6 @@ parkings.forEach(parking => {
                         transition: transform 0.2s;
                         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
                     "
-                    onmouseover="this.style.transform='translateY(-2px)'"
-                    onmouseout="this.style.transform='translateY(0)'"
                 >
                     ${parking.free_spaces > 0 ? '📍 Book Your Space' : '🚫 No Spaces Available'}
                 </button>
@@ -170,7 +165,27 @@ parkings.forEach(parking => {
     });
 });
 
-// Nominatim API search (like Google Maps search)
+// Add event delegation for popup buttons
+map.on('popupopen', function(e) {
+    const popup = e.popup;
+    const bookBtn = popup.getElement().querySelector('.popup-book-btn');
+    if (bookBtn) {
+        bookBtn.addEventListener('click', function() {
+            const parkingId = this.getAttribute('data-parking-id');
+            window.location.href = 'parking-detail.html?id=' + parkingId;
+        });
+        
+        bookBtn.addEventListener('mouseover', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        bookBtn.addEventListener('mouseout', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    }
+});
+
+// Nominatim API search
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 let searchTimeout;
@@ -178,8 +193,6 @@ let lastSearchTime = 0;
 
 searchInput.addEventListener('input', function(e) {
     const query = e.target.value.trim();
-    
-    // Clear previous timeout
     clearTimeout(searchTimeout);
     
     if (query.length < 3) {
@@ -187,13 +200,11 @@ searchInput.addEventListener('input', function(e) {
         return;
     }
     
-    // Debounce search and enforce rate limit (min 1 second between requests)
     searchTimeout = setTimeout(() => {
         const now = Date.now();
         const timeSinceLastSearch = now - lastSearchTime;
         
         if (timeSinceLastSearch < 1000) {
-            // Wait additional time if needed
             setTimeout(() => {
                 lastSearchTime = Date.now();
                 searchLocation(query);
@@ -206,7 +217,6 @@ searchInput.addEventListener('input', function(e) {
 });
 
 function searchLocation(query) {
-    // Search using Nominatim (OpenStreetMap's geocoding service)
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=gr&limit=8&addressdetails=1`;
     
     fetch(url)
@@ -239,14 +249,12 @@ function displaySearchResults(results) {
         const item = document.createElement('div');
         item.className = 'search-result-item';
         
-        // Determine icon based on type
         let icon = '📍';
         if (result.type === 'supermarket' || result.type === 'shop' || result.type === 'mall') icon = '🏪';
         if (result.type === 'restaurant' || result.type === 'cafe' || result.type === 'fast_food') icon = '🍽️';
         if (result.type === 'hotel' || result.type === 'hostel') icon = '🏨';
         if (result.class === 'highway' || result.class === 'road') icon = '🛣️';
         
-        // Get simple name and address
         const nameParts = result.display_name.split(',');
         const simpleName = nameParts[0];
         const simpleAddress = nameParts.slice(1, 3).join(',').trim();
@@ -266,16 +274,13 @@ function displaySearchResults(results) {
             searchResults.classList.remove('active');
             searchInput.value = simpleName;
             
-            // Add temporary marker
             const tempMarker = L.marker([lat, lon]).addTo(map);
             tempMarker.bindPopup(`<strong>${simpleName}</strong><br><small>${simpleAddress}</small>`).openPopup();
             
-            // Remove temp marker after 5 seconds
             setTimeout(() => {
                 map.removeLayer(tempMarker);
             }, 5000);
             
-            // Check for nearby parking
             findNearbyParking(lat, lon);
         });
         
@@ -286,14 +291,13 @@ function displaySearchResults(results) {
 }
 
 function findNearbyParking(lat, lon) {
-    // Find closest parking within 2km
     let closestParking = null;
     let minDistance = Infinity;
     
     parkings.forEach(parking => {
         const distance = Math.sqrt(
             Math.pow(parking.lat - lat, 2) + Math.pow(parking.lng - lon, 2)
-        ) * 111; // Approximate km
+        ) * 111;
         
         if (distance < 2 && distance < minDistance) {
             minDistance = distance;
@@ -302,7 +306,6 @@ function findNearbyParking(lat, lon) {
     });
     
     if (closestParking) {
-        // Highlight nearest parking
         setTimeout(() => {
             map.eachLayer(layer => {
                 if (layer instanceof L.Marker && layer.parkingData) {
@@ -315,19 +318,16 @@ function findNearbyParking(lat, lon) {
     }
 }
 
-// Close search results when clicking outside
 document.addEventListener('click', function(e) {
     if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
         searchResults.classList.remove('active');
     }
 });
 
-// Prevent map zoom when scrolling over search results
 searchResults.addEventListener('wheel', function(e) {
     e.stopPropagation();
 }, { passive: false });
 
-// Also prevent on the search box itself
 document.querySelector('.map-search-box').addEventListener('wheel', function(e) {
     if (searchResults.classList.contains('active')) {
         e.stopPropagation();
