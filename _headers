@@ -1,0 +1,5 @@
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://mt1.google.com https://mt0.google.com https://mt2.google.com https://mt3.google.com https://nominatim.openstreetmap.org; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https: http:; font-src 'self' data:; connect-src 'self' https://nominatim.openstreetmap.org https://mt1.google.com https://mt0.google.com https://mt2.google.com https://mt3.google.com; frame-src 'self';
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
